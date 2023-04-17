@@ -6,16 +6,38 @@
     android:layout_height="match_parent"
     tools:context=".Exito">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Bienvenido"
-        android:textSize="50dp"
-        tools:layout_editor_absoluteX="176dp"
-        tools:layout_editor_absoluteY="356dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+        <Button
+            android:id="@+id/btnMovies"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:backgroundTint="@drawable/btn_selector_movies"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="25dp"
+            android:text="Películas" />
+
+        <Button
+            android:id="@+id/btnSeries"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/btnMovies"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="-2dp"
+            android:layout_toEndOf="@id/btnMovies"
+            android:backgroundTint="@drawable/btn_selector_movies"
+            android:text="Series" />
+
+        <FrameLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/btnMovies"
+            android:layout_marginTop="16dp" />
+
+    </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
