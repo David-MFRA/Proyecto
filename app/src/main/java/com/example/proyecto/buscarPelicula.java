@@ -69,7 +69,7 @@ public class buscarPelicula extends AppCompatActivity {
                                 String movieReleaseDate = movieObject.getString("release_date");
 
                                 // Crear un objeto de película para pasar a la actividad de detalles
-                                Movie movie = new Movie(movieId, movieTitle, movieOverview, movieReleaseDate);
+                                Movie movie = new Movie(movieId, movieTitle, movieReleaseDate);
 
                                 // Iniciar la actividad de detalles de la película
                                 Intent intent = new Intent(buscarPelicula.this, Pelicula.class);

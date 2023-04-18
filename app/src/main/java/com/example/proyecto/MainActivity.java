@@ -3,7 +3,9 @@ package com.example.proyecto;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -56,6 +58,13 @@ public class MainActivity extends AppCompatActivity {
                 public void onResponse(String response) {
                     if (response.equals("OK")) {
                         Intent intent = new Intent(MainActivity.this, Exito.class);
+
+                        // Guarda el nombre de usuario en SharedPreferences
+                        SharedPreferences sharedPreferences = getSharedPreferences("MiPref", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("nombreUsuario", username);
+                        editor.apply();
+
                         startActivity(intent);
                         finish();
                     } else {

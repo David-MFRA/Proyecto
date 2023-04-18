@@ -29,8 +29,6 @@ import org.json.JSONObject;
 
 public class Exito extends AppCompatActivity {
 
-
-
     private fragmentPeliculas moviesFragment;
     private fragmentSeries seriesFragment;
 

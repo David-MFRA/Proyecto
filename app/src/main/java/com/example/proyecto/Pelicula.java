@@ -37,7 +37,7 @@ public class Pelicula extends AppCompatActivity {
         Intent intent = getIntent();
         Movie movie = intent.getParcelableExtra("movie");
 
-        String movieId = movie.getId(); // Obtener el ID de la película enviado desde la actividad anterior
+        String movieId = movie.getIdPelicula(); // Obtener el ID de la película enviado desde la actividad anterior
 
 
         String apiKey = "fd3ee47d3c563fc5782362955aba4142"; // API key

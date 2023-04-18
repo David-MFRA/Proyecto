@@ -6,23 +6,41 @@ import android.os.Parcelable;
 import androidx.annotation.NonNull;
 
 public class Movie implements Parcelable {
-    private String id;
-    private String title;
-    private String overview;
-    private String releaseDate;
 
-    public Movie(String id, String title, String overview, String releaseDate) {
-        this.id = id;
-        this.title = title;
-        this.overview = overview;
-        this.releaseDate = releaseDate;
+    private String idPelicula;
+    private String titulo;
+    private String imagen;
+    private String duracion;
+    private String fecha;
+    private String genero;
+    private String vista;
+
+
+    public Movie(String idPelicula, String titulo, String imagen, String duracion, String fecha, String genero, String vista) {
+        this.idPelicula = idPelicula;
+        this.titulo = titulo;
+        this.imagen = imagen;
+        this.duracion = duracion;
+        this.fecha = fecha;
+        this.genero = genero;
+        this.vista = vista;
     }
 
+    public Movie(String movieId, String movieTitle, String movieReleaseDate) {
+        this.idPelicula = movieId;
+        this.titulo = movieTitle;
+        this.fecha = movieReleaseDate;
+    }
+
+
     protected Movie(Parcel in) {
-        id = in.readString();
-        title = in.readString();
-        overview = in.readString();
-        releaseDate = in.readString();
+        idPelicula = in.readString();
+        titulo = in.readString();
+        imagen = in.readString();
+        duracion = in.readString();
+        fecha = in.readString();
+        genero = in.readString();
+        vista = in.readString();
     }
 
     public static final Creator<Movie> CREATOR = new Creator<Movie>() {
@@ -37,21 +55,62 @@ public class Movie implements Parcelable {
         }
     };
 
-    public String getId() {
-        return id;
+    public String getIdPelicula() {
+        return idPelicula;
     }
 
-    public String getTitle() {
-        return title;
+    public void setIdPelicula(String idPelicula) {
+        this.idPelicula = idPelicula;
     }
 
-    public String getOverview() {
-        return overview;
+    public String getTitulo() {
+        return titulo;
     }
 
-    public String getReleaseDate() {
-        return releaseDate;
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+
+    public String getDuracion() {
+        return duracion;
+    }
+
+    public void setDuracion(String duracion) {
+        this.duracion = duracion;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
+    public String getGenero() {
+        return genero;
+    }
+
+    public void setGenero(String genero) {
+        this.genero = genero;
+    }
+
+    public String getVista() {
+        return vista;
+    }
+
+    public void setVista(String vista) {
+        this.vista = vista;
+    }
+
 
     @Override
     public int describeContents() {
@@ -60,9 +119,12 @@ public class Movie implements Parcelable {
 
     @Override
     public void writeToParcel(@NonNull Parcel parcel, int i) {
-        parcel.writeString(id);
-        parcel.writeString(title);
-        parcel.writeString(overview);
-        parcel.writeString(releaseDate);
+        parcel.writeString(idPelicula);
+        parcel.writeString(titulo);
+        parcel.writeString(imagen);
+        parcel.writeString(duracion);
+        parcel.writeString(fecha);
+        parcel.writeString(genero);
+        parcel.writeString(vista);
     }
 }
