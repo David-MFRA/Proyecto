@@ -1,43 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Exito">
 
-    <RelativeLayout
+    <LinearLayout
+        android:id="@+id/top_bar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="16dp">
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_bar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.028"
+        tools:layout_editor_absoluteX="16dp">
 
         <Button
-            android:id="@+id/btnMovies"
+            android:id="@+id/btn_por_ver"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:backgroundTint="@drawable/btn_selector_movies"
-            android:layout_marginStart="60dp"
-            android:layout_marginTop="25dp"
-            android:text="Películas" />
+            android:backgroundTint="@drawable/btn_selector_top"
+            android:paddingLeft="8dp"
+            android:paddingTop="4dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="4dp"
+            android:layout_marginRight="20dp"
+            android:text="Por ver" />
 
         <Button
-            android:id="@+id/btnSeries"
+            android:id="@+id/btn_lista"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@id/btnMovies"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="-2dp"
-            android:layout_toEndOf="@id/btnMovies"
-            android:backgroundTint="@drawable/btn_selector_movies"
-            android:text="Series" />
+            android:backgroundTint="@drawable/btn_selector_top"
+            android:paddingLeft="8dp"
+            android:paddingTop="4dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="4dp"
+            android:text="Lista" />
 
-        <FrameLayout
-            android:id="@+id/fragment_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/btnMovies"
-            android:layout_marginTop="16dp" />
+        <Button
+            android:id="@+id/btn_buscar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@drawable/btn_selector_top"
+            android:paddingLeft="8dp"
+            android:paddingTop="4dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="4dp"
+            android:layout_marginLeft="20dp"
+            android:text="Buscar" />
 
-    </RelativeLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <Button
+            android:id="@+id/btn_movies"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Películas"
+            android:layout_marginEnd="8dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="4dp"
+            android:backgroundTint="@drawable/btn_selector_bottom"
+            android:paddingBottom="4dp"/>
+
+        <Button
+            android:id="@+id/btn_series"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@drawable/btn_selector_bottom"
+            android:text="Series"
+            android:layout_marginEnd="8dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"/>
+
+        <Button
+            android:id="@+id/btn_ajustes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/green"
+            android:text="Ajustes"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"/>
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/top_bar"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_bar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

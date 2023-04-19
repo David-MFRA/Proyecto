@@ -2,70 +2,193 @@ package com.example.proyecto;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-import com.squareup.picasso.Picasso;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.example.proyecto.busquedas.buscarPelicula;
+import com.example.proyecto.busquedas.buscarSerie;
+import com.example.proyecto.fragmentos.fragmentPeliculasLista;
+import com.example.proyecto.fragmentos.fragmentPeliculasPorVer;
+import com.example.proyecto.fragmentos.fragmentSeriesLista;
+import com.example.proyecto.fragmentos.fragmentSeriesPorVer;
 
 public class Exito extends AppCompatActivity {
 
-    private fragmentPeliculas moviesFragment;
-    private fragmentSeries seriesFragment;
+
+    private fragmentPeliculasPorVer peliculasPorVerFragment;
+    private fragmentPeliculasLista peliculasListaFragment;
+    private fragmentSeriesPorVer seriesPorVerFragment;
+    private fragmentSeriesLista seriesListaFragment;
+    private boolean isPeliculasSelected = false;
+
+    private String nombre;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exito);
 
-        // Obtén las instancias de los fragmentos
-        moviesFragment = new fragmentPeliculas();
-        seriesFragment = new fragmentSeries();
+        // Obtener una instancia de SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences("MiPref", Context.MODE_PRIVATE);
 
-        // Cargar el fragmento de películas en el contenedor correspondiente
+        // Obtener el valor String almacenado con la clave "nombreUsuario" o un valor por defecto si no se encuentra
+        String nombre = sharedPreferences.getString("nombreUsuario", "David1");
+
+        // Obtener las instancias de los fragmentos
+        peliculasPorVerFragment = new fragmentPeliculasPorVer();
+        peliculasListaFragment = new fragmentPeliculasLista();
+        seriesPorVerFragment = new fragmentSeriesPorVer();
+        seriesListaFragment = new fragmentSeriesLista();
+
+        // Cargar el fragmento "Por ver" de series en el contenedor
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, moviesFragment);
+        fragmentTransaction.replace(R.id.fragment_container, seriesPorVerFragment);
         fragmentTransaction.commit();
 
-        Button btnMovies = findViewById(R.id.btnMovies);
-        Button btnSeries = findViewById(R.id.btnSeries);
-
-        // Configurar el clic del botón de "Películas" para cargar el fragmento de películas
-        findViewById(R.id.btnMovies).setOnClickListener(view -> {
-            btnMovies.setSelected(true);
-            btnSeries.setSelected(false);
-            FragmentTransaction ft = fragmentManager.beginTransaction();
-            ft.replace(R.id.fragment_container, moviesFragment);
-            ft.commit();
+        // Configurar el clic del botón de "Películas" para cargar los fragmentos de películas
+        Button btnMovies = findViewById(R.id.btn_movies);
+        btnMovies.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!isPeliculasSelected) {
+                    isPeliculasSelected = true;
+                    btnMovies.setSelected(true);
+                    findViewById(R.id.btn_series).setSelected(false);
+                    findViewById(R.id.btn_ajustes).setSelected(false);
+                    FragmentTransaction ft = fragmentManager.beginTransaction();
+                    if (findViewById(R.id.btn_por_ver).isSelected()) {
+                        ft.replace(R.id.fragment_container, peliculasPorVerFragment);
+                    } else {
+                        ft.replace(R.id.fragment_container, peliculasListaFragment);
+                    }
+                    ft.commit();
+                }
+            }
         });
 
-        // Configurar el clic del botón de "Series" para cargar el fragmento de series
-        findViewById(R.id.btnSeries).setOnClickListener(view -> {
-            btnMovies.setSelected(false);
-            btnSeries.setSelected(true);
-            FragmentTransaction ft = fragmentManager.beginTransaction();
-            ft.replace(R.id.fragment_container, seriesFragment);
-            ft.commit();
+        // Configurar el clic del botón de "Series" para cargar los fragmentos de series
+        Button btnSeries = findViewById(R.id.btn_series);
+        btnSeries.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (isPeliculasSelected) {
+                    isPeliculasSelected = false;
+                    btnMovies.setSelected(false);
+                    btnSeries.setSelected(true);
+                    findViewById(R.id.btn_ajustes).setSelected(false);
+                    FragmentTransaction ft = fragmentManager.beginTransaction();
+                    if (findViewById(R.id.btn_por_ver).isSelected()) {
+                        ft.replace(R.id.fragment_container, seriesPorVerFragment);
+                    } else {
+                        ft.replace(R.id.fragment_container, seriesListaFragment);
+                    }
+                    ft.commit();
+                }
+            }
         });
+
+        // Configurar el clic del botón de "Ajustes" para cargar la actividad de ajustes
+        Button btnAjustes = findViewById(R.id.btn_ajustes);
+        btnAjustes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!btnAjustes.isSelected()) {
+                    btnMovies.setSelected(false);
+                    btnSeries.setSelected(false);
+                    btnAjustes.setSelected(true);
+                    // Aquí debes cargar la actividad de ajustes
+                }
+            }
+        });
+
+        // Configurar el clic del botón de "Por ver" para cargar el fragmento correspondiente
+        Button btnPorVer = findViewById(R.id.btn_por_ver);
+        btnPorVer.setSelected(true);
+        btnPorVer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                btnPorVer.setSelected(true);
+                findViewById(R.id.btn_lista).setSelected(false);
+                FragmentTransaction ft = fragmentManager.beginTransaction();
+                if (isPeliculasSelected) {
+                    ft.replace(R.id.fragment_container, peliculasPorVerFragment);
+                } else {
+                    ft.replace(R.id.fragment_container, seriesPorVerFragment);
+                }
+                ft.commit();
+            }
+        });
+
+        // Configurar el clic del botón de "Lista" para cargar el fragmento correspondiente
+        Button btnLista = findViewById(R.id.btn_lista);
+        btnLista.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                btnPorVer.setSelected(false);
+                btnLista.setSelected(true);
+                FragmentTransaction ft = fragmentManager.beginTransaction();
+                if (isPeliculasSelected) {
+                    ft.replace(R.id.fragment_container, peliculasListaFragment);
+                } else {
+                    ft.replace(R.id.fragment_container, seriesListaFragment);
+                }
+                ft.commit();
+            }
+        });
+
+        // Configurar el clic del botón de "Buscar" para cargar la actividad de búsqueda
+        Button btnBuscar = findViewById(R.id.btn_buscar);
+        btnBuscar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = null;
+                if(isPeliculasSelected) {
+                    intent = new Intent(Exito.this, buscarPelicula.class);
+                }
+                else {
+                    intent = new Intent(Exito.this, buscarSerie.class);
+                }
+                startActivity(intent);
+            }
+        });
+
+        btnSeries.setSelected(true);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Obtener las instancias de los fragmentos
+        peliculasPorVerFragment = new fragmentPeliculasPorVer();
+        peliculasListaFragment = new fragmentPeliculasLista();
+        seriesPorVerFragment = new fragmentSeriesPorVer();
+        seriesListaFragment = new fragmentSeriesLista();
+
+        // Cargar el fragmento correspondiente en el contenedor
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        if (isPeliculasSelected) {
+            if (findViewById(R.id.btn_por_ver).isSelected()) {
+                fragmentTransaction.replace(R.id.fragment_container, peliculasPorVerFragment);
+            } else {
+                fragmentTransaction.replace(R.id.fragment_container, peliculasListaFragment);
+            }
+        } else {
+            if (findViewById(R.id.btn_por_ver).isSelected()) {
+                fragmentTransaction.replace(R.id.fragment_container, seriesPorVerFragment);
+            } else {
+                fragmentTransaction.replace(R.id.fragment_container, seriesListaFragment);
+            }
+        }
+        fragmentTransaction.commit();
     }
 }

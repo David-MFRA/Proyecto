@@ -17,10 +17,16 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".Temporada"
+            android:exported="false" />
+        <activity
+            android:name=".busquedas.buscarSerie"
+            android:exported="false" />
+        <activity
             android:name=".Serie"
             android:exported="false" />
         <activity
-            android:name=".buscarPelicula"
+            android:name=".busquedas.buscarPelicula"
             android:exported="false" />
         <activity
             android:name=".Pelicula"

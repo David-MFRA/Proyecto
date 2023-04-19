@@ -1,4 +1,4 @@
-package com.example.proyecto;
+package com.example.proyecto.info;
 
 import android.os.Parcel;
 import android.os.Parcelable;

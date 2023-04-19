@@ -1,46 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Pelicula">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <ImageView
+        android:id="@+id/imageViewPoster"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="200dp"
+        android:scaleType="centerCrop" />
 
-        <ImageView
-            android:id="@+id/imageViewPoster"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:scaleType="centerCrop" />
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:textSize="24sp"
+        android:layout_marginTop="16dp"
+        tools:text="Movie Title" />
 
-        <TextView
-            android:id="@+id/textViewTitle"
-            android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/textViewOverview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        tools:text="Movie Overview" />
+
+    <TextView
+        android:id="@+id/textViewDuration"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:text="Duration" />
+
+    <TextView
+        android:id="@+id/textViewGenre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:text="Genre" />
+
+    <TextView
+        android:id="@+id/textViewReleaseDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:text="Release Date" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/buttonAddToUser"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/imageViewPoster"
-            android:padding="16dp"
-            android:textSize="24sp"
-            tools:text="Movie Title" />
+            android:text="Añadir"
+            android:layout_below="@+id/textViewReleaseDate"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="8dp"/>
 
-        <TextView
-            android:id="@+id/textViewOverview"
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/buttonRemoveFromUser"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textViewTitle"
-            android:padding="16dp"
-            tools:text="Movie Overview" />
+            android:text="Borrar"
+            android:layout_below="@+id/textViewReleaseDate"
+            android:layout_centerHorizontal="true"
+            android:backgroundTint="@android:color/holo_red_dark"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginStart="8dp"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewSeasons"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textViewOverview"
-            android:padding="16dp" />
-    </RelativeLayout>
+    </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <CheckBox
+        android:id="@+id/checkBoxViewed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Vista"
+        android:layout_gravity="center_horizontal"
+        android:padding="16dp"/>
 
+</LinearLayout>

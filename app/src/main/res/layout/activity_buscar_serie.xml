@@ -8,7 +8,7 @@
         android:id="@+id/et_busqueda"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Buscar película"
+        android:hint="Buscar serie"
         android:inputType="text"
         android:imeOptions="actionSearch"
         android:maxLines="1"

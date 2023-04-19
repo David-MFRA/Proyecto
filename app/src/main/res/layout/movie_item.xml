@@ -42,14 +42,6 @@
             android:layout_height="wrap_content"
             android:textSize="14sp" />
 
-        <Button
-            android:id="@+id/button_action"
-            android:layout_width="52dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="✅"
-            android:backgroundTint="@color/green"/>
-
     </LinearLayout>
 
 </RelativeLayout>

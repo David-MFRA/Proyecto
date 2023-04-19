@@ -1,4 +1,4 @@
 package com.example.proyecto;
 
-public class Inicio {
+public class Episodios {
 }

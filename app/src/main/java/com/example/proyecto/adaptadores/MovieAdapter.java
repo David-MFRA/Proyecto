@@ -1,4 +1,4 @@
-package com.example.proyecto;
+package com.example.proyecto.adaptadores;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,7 +21,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
-import com.squareup.picasso.Picasso;
+import com.example.proyecto.Pelicula;
+import com.example.proyecto.R;
+import com.example.proyecto.info.Movie;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -75,38 +76,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
                 intent.putExtra("movie", movie); // Pasar la película como extra en el intent
                 mContext.startActivity(intent);
             }
-        });
-
-        // Acceder al botón
-        Button boton = holder.itemView.findViewById(R.id.button_action);
-
-        // Establecer un listener para el evento de clic en el botón
-        boton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Crear una instancia de RequestQueue
-                RequestQueue queue = Volley.newRequestQueue(mContext);
-
-                // Definir la URL del archivo PHP
-                String url = "http://10.0.2.2/php/cambiarVista.php";
-                StringRequest stringRequest = null;
-
-                // Cambiar el color del botón
-                boton.setBackgroundColor(Color.RED); // Cambiar a color deseado
-
-                stringRequest = getStringRequest(url, movie, "0");
-
-                // Obtener la posición del elemento en la lista
-                int adapterPosition = holder.getAdapterPosition();
-
-                // Eliminar la película de la lista
-                mMovieList.remove(adapterPosition);
-                notifyDataSetChanged(); // Notificar al adaptador que los datos han cambiado
-
-                // Agregar la solicitud a la cola de solicitudes
-                queue.add(stringRequest);
-            }
-
         });
     }
 

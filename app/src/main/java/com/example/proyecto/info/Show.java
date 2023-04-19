@@ -1,4 +1,4 @@
-package com.example.proyecto;
+package com.example.proyecto.info;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -16,7 +16,10 @@ public class Show  implements Parcelable {
     private String enEmision;
     private String genero;
 
-    public Show(String idSerie, String titulo, String temporadas, String plataforma, String imagen, String puntuacion, String sinopsis, String enEmision, String genero) {
+    private String vista;
+
+    public Show(String idSerie, String titulo, String temporadas, String plataforma,
+                String imagen, String puntuacion, String sinopsis, String enEmision, String genero, String vista) {
         this.idSerie = idSerie;
         this.titulo = titulo;
         this.temporadas = temporadas;
@@ -26,6 +29,7 @@ public class Show  implements Parcelable {
         this.sinopsis = sinopsis;
         this.enEmision = enEmision;
         this.genero = genero;
+        this.vista = vista;
     }
 
     protected Show(Parcel in) {
@@ -122,6 +126,14 @@ public class Show  implements Parcelable {
 
     public void setGenero(String genero) {
         this.genero = genero;
+    }
+
+    public String getVista() {
+        return vista;
+    }
+
+    public void setVista(String vista) {
+        this.vista = vista;
     }
 
 

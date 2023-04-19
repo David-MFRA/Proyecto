@@ -1,4 +1,4 @@
-package com.example.proyecto;
+package com.example.proyecto.fragmentos;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -11,13 +11,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.proyecto.R;
+import com.example.proyecto.adaptadores.MovieAdapter;
+import com.example.proyecto.info.Movie;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,27 +30,27 @@ import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link fragmentSeries#newInstance} factory method to
+ * Use the {@link fragmentPeliculasPorVer#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class fragmentSeries extends Fragment {
+public class fragmentPeliculasPorVer extends Fragment {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
-    private List<Show> showList; // Lista para almacenar las series
+    private List<Movie> movieList; // Lista para almacenar las películas
     private RecyclerView recyclerView; // RecyclerView para mostrar la lista de películas
-    private ShowAdapter showAdapter; // Adaptador para el RecyclerView
+    private MovieAdapter movieAdapter; // Adaptador para el RecyclerView
 
-    public fragmentSeries() {
+    public fragmentPeliculasPorVer() {
         // Required empty public constructor
     }
 
-    public static fragmentSeries newInstance(String param1, String param2) {
-        fragmentSeries fragment = new fragmentSeries();
+    public static fragmentPeliculasPorVer newInstance(String param1, String param2) {
+        fragmentPeliculasPorVer fragment = new fragmentPeliculasPorVer();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -63,15 +65,16 @@ public class fragmentSeries extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        showList  = new ArrayList<>();
+
+        // Inicializar la lista de películas
+        movieList = new ArrayList<>();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_series, container, false);
-
+        View view = inflater.inflate(R.layout.fragment_peliculas_lista, container, false);
         // Obtener una instancia de SharedPreferences
         SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("MiPref", Context.MODE_PRIVATE);
 
@@ -79,15 +82,21 @@ public class fragmentSeries extends Fragment {
         String nombre = sharedPreferences.getString("nombreUsuario", "David1");
 
         // Inicializar el RecyclerView y el adaptador
-        recyclerView = view.findViewById(R.id.rvShows);
-        showAdapter = new ShowAdapter(this.getContext(),showList);
+        recyclerView = view.findViewById(R.id.rvMovies);
+        movieAdapter = new MovieAdapter(this.getContext(),movieList);
 
         // Configurar el RecyclerView con un LinearLayoutManager
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setAdapter(showAdapter);
+        recyclerView.setAdapter(movieAdapter);
 
+        actualizarLista(nombre);
+
+        return view;
+    }
+
+    public void actualizarLista(String nombre) {
         // Realizar la petición al archivo PHP para obtener la información de las películas
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://10.0.2.2/php/listaSeriesUsuario.php?nombre=" + nombre,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://10.0.2.2/php/listaPelisUsuario.php?nombre=" + nombre,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -98,24 +107,24 @@ public class fragmentSeries extends Fragment {
                             // Recorrer el array JSON y obtener la información de las películas
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                                String idSerie = String.valueOf(jsonObject.getInt("idSerie"));
+                                String idPelicula = String.valueOf(jsonObject.getInt("idPelicula"));
                                 String titulo = jsonObject.getString("titulo");
-                                String temporadas = String.valueOf(jsonObject.getInt("temporadas"));
-                                String plataforma = jsonObject.getString("plataforma");
                                 String imagen = jsonObject.getString("imagen");
-                                String puntuacion = jsonObject.getString("puntuacion");
-                                String sinopsis = jsonObject.getString("sinopsis");
-                                String enEmision = jsonObject.getString("enEmision");
+                                String duracion = String.valueOf(jsonObject.getInt("duracion"));
+                                String fecha = jsonObject.getString("fecha");
                                 String genero = jsonObject.getString("genero");
+                                String vista = jsonObject.getString("vista");
 
                                 // Crear un objeto Movie y agregarlo a la lista
-                                Show serie = new Show(idSerie, titulo, temporadas, plataforma, imagen, puntuacion, sinopsis,enEmision, genero);
+                                Movie pelicula = new Movie(idPelicula, titulo, imagen, duracion, fecha, genero, vista);
+                                if(pelicula.getVista().equals("0")) {
+                                    movieList.add(pelicula);
+                                }
 
-                                showList.add(serie);
                             }
 
                             // Notificar al adaptador que los datos han cambiado
-                            showAdapter.notifyDataSetChanged();
+                            movieAdapter.notifyDataSetChanged();
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -130,7 +139,6 @@ public class fragmentSeries extends Fragment {
 
         // Agregar la petición a la cola de peticiones
         Volley.newRequestQueue(getActivity()).add(stringRequest);
-
-        return view;
     }
+
 }
