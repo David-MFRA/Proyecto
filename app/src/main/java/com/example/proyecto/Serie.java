@@ -162,7 +162,7 @@ public class Serie extends AppCompatActivity {
         // Agrega la petición a la cola de peticiones de Volley
         Volley.newRequestQueue(this).add(jsonObjectRequest);
 
-        url = "http://10.0.2.2/php/serieVista.php?idSerie=" + serieId + "&nombre=" + nombre;
+        url = "https://10.0.2.2/php/serieVista.php?idSerie=" + serieId + "&nombre=" + nombre;
 
         // Realizar una petición GET a "serieVista.php"
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
@@ -196,7 +196,7 @@ public class Serie extends AppCompatActivity {
         buttonDeleteFromUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url2 = "http://10.0.2.2/php/eliminarSerie.php?idSerie=" + serieId + "&nombre=" + nombre;
+                String url2 = "https://10.0.2.2/php/eliminarSerie.php?idSerie=" + serieId + "&nombre=" + nombre;
                 // Realizar una petición GET a "eliminarSerie.php" para eliminar la serie de la lista del usuario
                 JsonObjectRequest jsonObjectRequestEliminar = new JsonObjectRequest(Request.Method.GET, url2, null,
                         new Response.Listener<JSONObject>() {
@@ -237,7 +237,7 @@ public class Serie extends AppCompatActivity {
         buttonAddToUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url2 = "http://10.0.2.2/php/anadirSerie.php?idSerie=" + serieId + "&nombre=" + nombre + "&vista=" + (checkBoxVista.isChecked()  ? "1" : "0");
+                String url2 = "https://10.0.2.2/php/anadirSerie.php?idSerie=" + serieId + "&nombre=" + nombre + "&vista=" + (checkBoxVista.isChecked()  ? "1" : "0");
 
                 // Realizar una petición GET a "anadirSerie.php" para añadir la serie a la lista del usuario
                 JsonObjectRequest jsonObjectRequestAnadir = new JsonObjectRequest(Request.Method.GET, url2, null,
@@ -278,7 +278,7 @@ public class Serie extends AppCompatActivity {
 
     private void comprobarSerie(String serieId, String nombre, Button buttonDeleteFromUser) {
         // Realizar una petición GET a "listaSeriessUsuario.php"
-        String urlListaPelis = "http://10.0.2.2/php/listaSeriesUsuario.php?nombre=" + nombre;
+        String urlListaPelis = "https://10.0.2.2/php/listaSeriesUsuario.php?nombre=" + nombre;
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, urlListaPelis, null,
                 new Response.Listener<JSONArray>() {
                     @Override

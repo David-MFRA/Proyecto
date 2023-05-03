@@ -103,7 +103,7 @@ public class fragmentSeriesPorVer extends Fragment {
 
     public void actualizarLista(String nombre) {
         // Realizar la petición al archivo PHP para obtener la información de las películas
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://10.0.2.2/php/listaSeriesUsuario.php?nombre=" + nombre,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://10.0.2.2/php//listaSeriesUsuario.php?nombre=" + nombre,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

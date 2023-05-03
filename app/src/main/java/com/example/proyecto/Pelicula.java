@@ -68,6 +68,8 @@ public class Pelicula extends AppCompatActivity {
         String apiKey = "fd3ee47d3c563fc5782362955aba4142"; // API key
         String url = "https://api.themoviedb.org/3/movie/" + movieId + "?api_key=" + apiKey;
 
+        comprobarPelicula(movieId, nombre, buttonDeleteFromUser);
+
         // Realizar una petición GET a la API de The Movie Database
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
@@ -103,7 +105,7 @@ public class Pelicula extends AppCompatActivity {
 
         // Agrega la petición a la cola de peticiones de Volley
         Volley.newRequestQueue(this).add(jsonObjectRequest);
-        url = "http://10.0.2.2/php/peliculaVista.php?idPelicula=" + movieId + "&nombre=" + nombre;
+        url = "https://10.0.2.2/php/peliculaVista.php?idPelicula=" + movieId + "&nombre=" + nombre;
 
          // Realizar una petición GET a "peliculaVista.php"
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
@@ -131,11 +133,11 @@ public class Pelicula extends AppCompatActivity {
         // Agregar la petición a la cola de peticiones de Volley
         Volley.newRequestQueue(this).add(jsonObjectRequest);
 
-        comprobarPelicula(movieId, nombre, buttonDeleteFromUser);
+
 
         // Agregar un listener al botón de eliminar para realizar la petición de eliminación
         buttonDeleteFromUser.setOnClickListener(v -> {
-            String url2 = "http://10.0.2.2/php/eliminarPelicula.php?idPelicula=" + movieId + "&nombre=" + nombre;
+            String url2 = "https://10.0.2.2/php/eliminarPelicula.php?idPelicula=" + movieId + "&nombre=" + nombre;
 
             // Realizar una petición GET a "eliminarPelicula.php"
             JsonObjectRequest jsonObjectRequest2 = new JsonObjectRequest(Request.Method.GET, url2, null,
@@ -183,7 +185,6 @@ public class Pelicula extends AppCompatActivity {
                                 // Si se añadió correctamente, actualiza el estado de la vista
                                 if (añadido) {
                                     buttonDeleteFromUser.setVisibility(View.VISIBLE);
-                                    checkBoxVista.setChecked(true);
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();

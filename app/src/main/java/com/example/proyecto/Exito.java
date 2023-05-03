@@ -104,7 +104,9 @@ public class Exito extends AppCompatActivity {
                     btnMovies.setSelected(false);
                     btnSeries.setSelected(false);
                     btnAjustes.setSelected(true);
-                    // Aquí debes cargar la actividad de ajustes
+                    Intent intent = new Intent(Exito.this, ajustes.class);
+
+                    startActivity(intent);
                 }
             }
         });

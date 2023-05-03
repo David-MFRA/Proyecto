@@ -231,7 +231,13 @@ public class buscarPelicula extends AppCompatActivity {
                     if (movie.getIdPelicula().equals(idPelicula)) {
                         movie.setGenero(genero);
                         movie.setDuracion(runtime + " min");
-                        mMovieAdapter.notifyItemChanged(i);
+                        int finalI = i;
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                mMovieAdapter.notifyItemChanged(finalI);
+                            }
+                        });
                         break;
                     }
                 }
