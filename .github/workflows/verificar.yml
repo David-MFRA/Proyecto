@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Verificar Mensaje de Commit
+      - name: Verificar Mensaje de Commit - test
         uses: actions/checkout@v2
         
       - name: Obtener Mensaje de Commit
