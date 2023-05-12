@@ -1,24 +1,15 @@
-name: Verificar Regla de Protección de Rama
+name: Verificar Mensaje de Commit
 
 on:
   pull_request:
     types:
       - opened
-      - synchronize
 
 jobs:
-  verificar-regla:
+  verificar:
     runs-on: ubuntu-latest
     
-    steps:
-      - name: Verificar Mensaje de Commit
-        uses: actions/checkout@v2
-        
+    steps: 
       - name: Comprobar Formato de Inicio de Commit
-        run: |
-          commit_message=$(git log --format=%B -n 1 ${{ github.event.pull_request.head.sha }})
-          if [[ $commit_message != "[FORMATO_DE_INICIO]*" ]]; then
-            echo "El mensaje de commit no cumple con el formato de inicio requerido, pero se permitirá el merge."
-          else
-            echo "El mensaje de commit cumple con el formato de inicio requerido."
-          fi
+        run:         
+            echo "El mensaje de commit no cumple con el formato de inicio requerido."
