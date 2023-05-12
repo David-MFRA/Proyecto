@@ -13,3 +13,4 @@ jobs:
       - name: Comprobar Formato de Inicio de Commit
         run:         
             echo "El mensaje de commit no cumple con el formato de inicio requerido."
+            exit 1
