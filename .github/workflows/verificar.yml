@@ -21,7 +21,7 @@ jobs:
         run: |
           commit_message=$(git log --format=%B -n 1 HEAD)
           echo "Commit message: ${commit_message}"
-          commit_format="Ejemplo"
+          commit_format="Update Nuevo documento de texto.txt"
           if [[ ! ${commit_message} =~ ${commit_format} ]]; then
             echo "error: invalid commit message format"
             echo "Valid commit message format is: 'Issue #<issue_number>: <description>'"
